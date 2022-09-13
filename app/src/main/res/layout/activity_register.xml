@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFDFD"
+    android:textAlignment="center"
+    tools:context=".RegisterActivity">
+
+
+    <TextView
+        android:id="@+id/lblCadastrar"
+        android:layout_width="411dp"
+        android:layout_height="80dp"
+        android:background="#E7EDED"
+        android:paddingTop="20dp"
+        android:shadowColor="#171616"
+        android:text="Registrar"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#474646"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:layout_width="377dp"
+        android:layout_height="434dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/lblCadastrar"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="18dp">
+
+        <EditText
+            android:id="@+id/txtEmailCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:textColor="#171616"
+            android:textColorHint="#171616" />
+
+        <EditText
+            android:id="@+id/txtSenhaCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:textColor="#171616"
+            android:textColorHint="#171616" />
+
+        <Button
+            android:id="@+id/btnEnviar"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:backgroundTint="#353434"
+            android:text="Enviar"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFDFD"
+    android:textAlignment="center"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/lblTituloLogin"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="#E7EDED"
+        android:paddingTop="40dp"
+        android:shadowColor="#2C2B2B"
+        android:text="Post Here"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#474646"
+        android:textColorHighlight="#CFD9DD"
+        android:textColorHint="#171616"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="374dp"
+        android:layout_height="264dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblTituloLogin">
+
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:textColor="#171616"
+            android:textColorHint="#171616" />
+
+        <EditText
+            android:id="@+id/txtSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:textColor="#171616"
+            android:textColorHint="#171616" />
+
+        <Button
+            android:id="@+id/btnEntrar"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:backgroundTint="#353434"
+            android:text="Entrar"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/lblOu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ou"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#171616"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnTelaCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="#353434"
+            android:text="Cadastrar"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
