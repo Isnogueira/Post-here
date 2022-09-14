@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1083708221575",
+    "project_id": "post-here-233",
+    "storage_bucket": "post-here-233.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083708221575:android:8e824c04c5dae69ec4b022",
+        "android_client_info": {
+          "package_name": "com.domain.posthere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083708221575-fhdaueg4nno492ulk0a3ah85fg8nvje3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRNbSK-59UaDYYcgsTz5esYvzfLYUPeCg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083708221575-fhdaueg4nno492ulk0a3ah85fg8nvje3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

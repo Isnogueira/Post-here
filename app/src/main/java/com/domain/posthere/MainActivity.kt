@@ -5,13 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.security.crypto.EncryptedFile
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.google.firebase.auth.FirebaseAuth
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -19,6 +20,12 @@ class MainActivity : AppCompatActivity(), RecycleViewItemListener {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var progressDialog: ProgressDialog
+
+    val masterkey = MasterKey.Builder(this)
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+        .build()
+    val file = File(this.filesDir, "teste.dir")
+    val encryptedFile = getEncriptedFile(masterkey,file)
 
     private val postDao = PostDao()
 
@@ -46,21 +53,22 @@ class MainActivity : AppCompatActivity(), RecycleViewItemListener {
 
         postDao.listar().addOnSuccessListener { listaDeDocumentos ->
 
-            val users = ArrayList<Post>()
+            val posts = ArrayList<Post>()
             for(documento in listaDeDocumentos) {
-                val user = documento.toObject(Post::class.java)
-                users.add(user)
+                val postConvertido = documento.toObject(Post::class.java)
+                posts.add(postConvertido)
             }
+
             //--------------------------------------------------------------------------------------
             val lstContatos = this.findViewById<RecyclerView>(R.id.lstPosts)
             lstContatos.layoutManager = LinearLayoutManager(this)
             val adapter = ListaPostAdapter()
-            adapter.listaPosts = users
+            adapter.listaPosts = posts
             adapter.setRecyclerViewItemListener(this)
             lstContatos.adapter = adapter
             //--------------------------------------------------------------------------------------
 
-        }?.addOnFailureListener { exception ->
+        }.addOnFailureListener { exception ->
 
             Toast.makeText(this, exception.message, Toast.LENGTH_LONG).show()
         }
@@ -79,6 +87,18 @@ class MainActivity : AppCompatActivity(), RecycleViewItemListener {
                 date,
                 txtContent.text.toString()
             )
+
+            val sharedPreferences = EncryptedSharedPreferences.create(
+                "posts.shp",
+                post.toString(),
+                applicationContext,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+            val editor = sharedPreferences.edit()
+            editor.putString("post", post.toString())
+            editor.apply()
+
             postDao.salvar(post)?.addOnSuccessListener {
                 txtContent.text = null
                 this.atualizarLista()
@@ -87,6 +107,17 @@ class MainActivity : AppCompatActivity(), RecycleViewItemListener {
                 Toast.makeText(this, exception.message, Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun getEncriptedFile(masterkey: MasterKey, file:File): EncryptedFile {
+        val encryptedFile = EncryptedFile.Builder(
+            this,
+            file,
+            masterkey,
+            EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+        ).build()
+
+        return encryptedFile
     }
 
     private fun firebaseSignout(){
