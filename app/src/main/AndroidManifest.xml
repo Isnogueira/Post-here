@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.domain.posthere">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,13 +18,19 @@
         android:theme="@style/Theme.PostHere"
         tools:targetApi="31">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Ui.PostApiActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Ui.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Ui.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Ui.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

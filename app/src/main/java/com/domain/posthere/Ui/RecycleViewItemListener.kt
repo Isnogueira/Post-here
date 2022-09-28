@@ -1,4 +1,4 @@
-package com.domain.posthere
+package com.domain.posthere.Ui
 
 import android.view.View
 

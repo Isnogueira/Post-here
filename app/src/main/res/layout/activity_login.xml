@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFDFD"
     android:textAlignment="center"
-    tools:context=".LoginActivity">
+    tools:context=".Ui.LoginActivity">
 
     <TextView
         android:id="@+id/lblTituloLogin"

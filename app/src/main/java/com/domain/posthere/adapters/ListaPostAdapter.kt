@@ -1,4 +1,4 @@
-package com.domain.posthere
+package com.domain.posthere.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -6,6 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.domain.posthere.Ui.MainActivity
+import com.domain.posthere.R
+import com.domain.posthere.Ui.RecycleViewItemListener
+import com.domain.posthere.model.Post
 
 class ListaPostAdapter() : RecyclerView.Adapter<ListaPostAdapter.ViewHolder>() {
 
@@ -39,7 +43,6 @@ class ListaPostAdapter() : RecyclerView.Adapter<ListaPostAdapter.ViewHolder>() {
         return listaPosts.size
     }
 
-    //Classe Interna = relação Tdo - Parte
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItem(post : Post, itemListener: RecycleViewItemListener, position: Int) {
@@ -53,6 +56,7 @@ class ListaPostAdapter() : RecyclerView.Adapter<ListaPostAdapter.ViewHolder>() {
             //--------------------------------------------------------------------------------------
             itemView.setOnClickListener {
                 itemListener.recycleViewItemClicked(it, post.id!!)
+
             }
         }
     }

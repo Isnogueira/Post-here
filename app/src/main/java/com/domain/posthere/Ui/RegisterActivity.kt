@@ -1,4 +1,4 @@
-package com.domain.posthere
+package com.domain.posthere.Ui
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.domain.posthere.R
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
@@ -71,7 +72,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 val emailAuth = auth.currentUser!!.email
                 Toast.makeText(this, "Usuário criado como $emailAuth", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, LoginActivity::class.java))
+                startActivity(Intent(this, ProfileActivity::class.java))
                 finish()
 
             }.addOnFailureListener{e ->

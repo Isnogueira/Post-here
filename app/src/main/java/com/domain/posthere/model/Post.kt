@@ -1,4 +1,4 @@
-package com.domain.posthere
+package com.domain.posthere.model
 
 data class Post (
         var id: String? = null,

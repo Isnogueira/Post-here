@@ -1,37 +1,38 @@
-package com.domain.posthere
+package com.domain.posthere.Ui
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.security.crypto.EncryptedFile
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
+import com.domain.posthere.R
+import com.domain.posthere.adapters.ListaPostAdapter
+import com.domain.posthere.dao.PostDao
+import com.domain.posthere.model.Post
 import com.google.firebase.auth.FirebaseAuth
-import java.io.File
+import java.io.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), RecycleViewItemListener {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var progressDialog: ProgressDialog
 
-    val masterkey = MasterKey.Builder(this)
-        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-        .build()
-    val file = File(this.filesDir, "teste.dir")
-    val encryptedFile = getEncriptedFile(masterkey,file)
+    private companion object{
+        private const val STORAGE_PERMISSION_CODE = 100
+    }
 
     private val postDao = PostDao()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         auth = FirebaseAuth.getInstance()
 
@@ -42,9 +43,15 @@ class MainActivity : AppCompatActivity(), RecycleViewItemListener {
 
         supportActionBar!!.hide()
 
+        val email = intent.getStringExtra("email").toString()
+        val lblEmail = this.findViewById<TextView>(R.id.lblEmail)
+        lblEmail.text = email
+
         this.atualizarLista()
 
-        this.postar()
+        this.postar(email)
+
+        this.acessarPostsApi()
 
         this.firebaseSignout()
    }
@@ -74,7 +81,7 @@ class MainActivity : AppCompatActivity(), RecycleViewItemListener {
         }
     }
 
-    private fun postar(){
+    private fun postar(email: String){
         val btnPostar = this.findViewById<Button>(R.id.btnPostar)
         btnPostar.setOnClickListener {
 
@@ -83,21 +90,12 @@ class MainActivity : AppCompatActivity(), RecycleViewItemListener {
 
             val post = Post(
                 null,
-                "Ingrid",
+                email,
                 date,
                 txtContent.text.toString()
             )
 
-            val sharedPreferences = EncryptedSharedPreferences.create(
-                "posts.shp",
-                post.toString(),
-                applicationContext,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
-            val editor = sharedPreferences.edit()
-            editor.putString("post", post.toString())
-            editor.apply()
+            salvarArquivo(post)
 
             postDao.salvar(post)?.addOnSuccessListener {
                 txtContent.text = null
@@ -109,15 +107,36 @@ class MainActivity : AppCompatActivity(), RecycleViewItemListener {
         }
     }
 
-    private fun getEncriptedFile(masterkey: MasterKey, file:File): EncryptedFile {
-        val encryptedFile = EncryptedFile.Builder(
-            this,
-            file,
-            masterkey,
-            EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
-        ).build()
+    @SuppressLint("SdCardPath")
+    private fun salvarArquivo(post: Post) {
+        val date = Date().toString()
+        try {
+            val fos: FileOutputStream =
+                this.openFileOutput("dadosPost($date).txt", MODE_PRIVATE)
+            val text = "User: ${post.user}\n" +
+                    "Date: ${post.date}\n" +
+                    "Content: ${post.content}\n" +
+                    "-------------------------------------------------\n"
 
-        return encryptedFile
+            val path = "/data/data/com.domain.posthere/files/dadosPost($date).txt"
+            try {
+                FileWriter(path, true).use {
+                    it.write(text)
+                }
+            }catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+            Toast.makeText(this, "Dados salvos com sucesso em arquivo", Toast.LENGTH_SHORT).show()
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: NumberFormatException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun firebaseSignout(){
@@ -129,7 +148,24 @@ class MainActivity : AppCompatActivity(), RecycleViewItemListener {
         }
     }
 
+
     override fun recycleViewItemClicked(view: View, id: String) {
-        TODO("Not yet implemented")
+        postDao.deletar(id).addOnSuccessListener {
+            this.atualizarLista()
+        }.addOnFailureListener { exception ->
+
+            Toast.makeText(this, exception.message, Toast.LENGTH_LONG).show()
+        }
+
     }
+
+    fun acessarPostsApi(){
+        val btnPostsAPI = this.findViewById<Button>(R.id.btnPostsApi)
+        btnPostsAPI.setOnClickListener{
+            startActivity(Intent(this, PostApiActivity::class.java))
+        }
+    }
+
+
+
 }

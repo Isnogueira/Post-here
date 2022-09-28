@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:backgroundTint="@color/white"
-    tools:context=".MainActivity">
+    tools:context=".Ui.MainActivity">
 
     <EditText
         android:id="@+id/txtPost"
         android:layout_width="263dp"
         android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
         android:background="#D2D7D8"
         android:ems="10"
         android:gravity="start|top"
@@ -25,14 +25,14 @@
         android:textColorHint="#353434"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblIdent"
+        app:layout_constraintTop_toBottomOf="@+id/lblEmail"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/btnPostar"
-        android:layout_width="61dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="28dp"
         android:backgroundTint="#353434"
         android:isScrollContainer="false"
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/txtPost"
-        app:layout_constraintTop_toBottomOf="@+id/lblIdent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSair"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
     <Button
@@ -58,37 +58,56 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/lblIdent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/lblIdent"
-        android:layout_width="249dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="16dp"
-        android:padding="20dp"
-        android:text="Olá, Seja bem vindo(a)"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="#353434"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btnSair"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lstPosts"
-        android:layout_width="384dp"
-        android:layout_height="497dp"
+        android:layout_width="371dp"
+        android:layout_height="421dp"
         android:layout_marginTop="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPost"
-        app:layout_constraintVertical_bias="0.392" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPost" />
+
+    <TextView
+        android:id="@+id/lblOla"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Olá"
+        android:textAllCaps="true"
+        android:textColor="#353434"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/lblEmail"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lblEmail"
+        android:layout_width="186dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="40dp"
+        android:text="TextView"
+        android:textAllCaps="true"
+        android:textColor="#353434"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnSair"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/lblOla"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnPostsApi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#353434"
+        android:text="Acessar posts da API"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstPosts" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

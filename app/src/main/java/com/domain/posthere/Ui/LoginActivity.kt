@@ -1,14 +1,15 @@
-package com.domain.posthere
+package com.domain.posthere.Ui
 
 import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.domain.posthere.R
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -83,7 +84,11 @@ class LoginActivity : AppCompatActivity() {
 
                 val emailAuth = auth.currentUser!!.email
                 Toast.makeText(this, "Logado como $emailAuth", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
+                val mainIntent = Intent(this, MainActivity::class.java)
+                val profileIntent = Intent(this, ProfileActivity::class.java)
+                mainIntent.putExtra("email", emailAuth)
+                profileIntent.putExtra("email", emailAuth)
+                startActivity(mainIntent)
 
             }.addOnFailureListener { e ->
                 progressDialog.dismiss()

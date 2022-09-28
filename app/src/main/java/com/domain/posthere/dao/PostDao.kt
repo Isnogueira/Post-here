@@ -1,5 +1,6 @@
-package com.domain.posthere
+package com.domain.posthere.dao
 
+import com.domain.posthere.model.Post
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot
@@ -24,5 +25,8 @@ class PostDao {
         return db.collection(collection).get()
     }
 
+    fun deletar(id: String): Task<Void> {
+       return db.collection(collection).document(id).delete()
+    }
 
 }
